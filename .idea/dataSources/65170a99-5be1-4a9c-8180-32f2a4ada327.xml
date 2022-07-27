@@ -785,7 +785,7 @@ false YEKT
 false Z
 false Zulu
 </TimeZones>
-      <StartupTime>1656571665</StartupTime>
+      <StartupTime>1657745392</StartupTime>
     </root>
     <database id="2" parent="1" name="first_db">
       <ObjectId>16394</ObjectId>
@@ -799,7 +799,7 @@ false Zulu
     <database id="4" parent="1" name="project1">
       <ObjectId>16400</ObjectId>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>776</IntrospectionStateNumber>
+      <IntrospectionStateNumber>820</IntrospectionStateNumber>
       <Current>1</Current>
       <Relations>sequence|table|16401|16402|1
 sequence|table|16407|16408|1
@@ -882,7 +882,7 @@ UC/10
 </Acl>
       <StateNumber>527</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>777</IntrospectionStateNumber>
+      <IntrospectionStateNumber>821</IntrospectionStateNumber>
       <Current>1</Current>
     </schema>
     <extension id="22" parent="4" name="plpgsql">
@@ -996,9 +996,8 @@ UC/10
     </sequence>
     <table id="36" parent="21" name="book">
       <ObjectId>16408</ObjectId>
-      <Outdated>1</Outdated>
       <Owner>postgres</Owner>
-      <StateNumber>769</StateNumber>
+      <StateNumber>780</StateNumber>
     </table>
     <table id="37" parent="21" name="person">
       <ObjectId>16402</ObjectId>
@@ -1035,9 +1034,9 @@ UC/10
       <TypeId>23</TypeId>
     </column>
     <column id="42" parent="36" name="personid">
-      <Position>5</Position>
+      <Position>6</Position>
       <DataType>integer|0s</DataType>
-      <StateNumber>772</StateNumber>
+      <StateNumber>780</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <index id="43" parent="36" name="book_pk">
@@ -1057,15 +1056,16 @@ UC/10
       <Primary>1</Primary>
       <UnderlyingIndexName>book_pk</UnderlyingIndexName>
     </key>
-    <foreign-key id="45" parent="36" name="book_personid_fk">
-      <ObjectId>16417</ObjectId>
-      <StateNumber>775</StateNumber>
+    <foreign-key id="45" parent="36" name="book_personid_fkey">
+      <ObjectId>16422</ObjectId>
+      <StateNumber>780</StateNumber>
       <ColNames>personid</ColNames>
       <RefTableId>16402</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>person</RefTableName>
       <RefKeyName>person_pk</RefKeyName>
       <RefColNames>id</RefColNames>
+      <OnDelete>set-null</OnDelete>
     </foreign-key>
     <column id="46" parent="37" name="id">
       <Position>1</Position>
@@ -1075,11 +1075,11 @@ UC/10
       <TypeId>23</TypeId>
       <IdentityKind>by-default</IdentityKind>
     </column>
-    <column id="47" parent="37" name="fio">
+    <column id="47" parent="37" name="fullname">
       <Position>2</Position>
       <DataType>varchar|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>752</StateNumber>
+      <StateNumber>819</StateNumber>
       <TypeId>1043</TypeId>
     </column>
     <column id="48" parent="37" name="birthofyear">
