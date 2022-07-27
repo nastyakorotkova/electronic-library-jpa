@@ -8,6 +8,7 @@ import ru.korotkova.springcourse.models.Book;
 import ru.korotkova.springcourse.models.Person;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class BookDAO {
@@ -39,11 +40,17 @@ public class BookDAO {
         jdbcTemplate.update("DELETE FROM Book WHERE id=?", id);
     }
 
-    public void setPersonId(int id, int personid) {
-        jdbcTemplate.update("UPDATE book set personid=? where id = ?", personid, id);
+    public void setPersonId(int id, int personId) {
+        jdbcTemplate.update("UPDATE book set personid=? where id = ?", personId, id);
     }
 
-    public void delPersonId(int id) {
+    public void release(int id) {
         jdbcTemplate.update("UPDATE book set personid=null where id = ?", id);
+    }
+
+    public Optional<Person> getBookOwner(int id) {
+        return jdbcTemplate.query("SELECT Person.* FROM Book JOIN Person ON Book.personid = Person.id " +
+                "WHERE Book.id = ?", new Object[]{id}, new BeanPropertyRowMapper<>(Person.class))
+                .stream().findAny();
     }
 }

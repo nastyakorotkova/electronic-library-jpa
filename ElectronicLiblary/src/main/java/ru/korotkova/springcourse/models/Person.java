@@ -14,29 +14,28 @@ import static java.time.LocalDate.now;
 public class Person {
     private int id;
 
-    @NotEmpty(message = "Fio should not be empty")
-    @Size(min = 2, max = 100, message = "Fio should be between 2 and 30 characters")
-    private String fio;
+    @NotEmpty(message = "ФИО не может быит пустым")
+    @Size(min = 2, max = 100, message = "Длина поля ФИО должна быть от 2 от 100 символов")
+    private String fullName;
 
-    @Min(1900)
+    @Min(value = 1900, message = "Некорректный год рождения")
     private int birthOfYear;
 
     public Person() {
 
     }
 
-    public Person(int id, String fio, int birthOfYear) {
-        this.id = id;
-        this.fio = fio;
+    public Person(String fio, int birthOfYear) {
+        this.fullName = fio;
         this.birthOfYear = birthOfYear;
     }
 
-    public String getFio() {
-        return fio;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFio(String fio) {
-        this.fio = fio;
+    public void setFullName(String fio) {
+        this.fullName = fio;
     }
 
     public int getBirthOfYear() {

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.korotkova.springcourse.dao.BookDAO;
 import ru.korotkova.springcourse.dao.PersonDAO;
 import ru.korotkova.springcourse.models.Person;
+import ru.korotkova.springcourse.util.PersonValidator;
 
 import javax.validation.Valid;
 
@@ -19,10 +20,12 @@ import javax.validation.Valid;
 public class PeopleController {
 
     private final PersonDAO personDAO;
+    private final PersonValidator personValidator;
 
     @Autowired
-    public PeopleController(PersonDAO personDAO) {
+    public PeopleController(PersonDAO personDAO, PersonValidator personValidator) {
         this.personDAO = personDAO;
+        this.personValidator = personValidator;
     }
 
     @GetMapping()
@@ -46,6 +49,7 @@ public class PeopleController {
     @PostMapping()
     public String create(@ModelAttribute("person") @Valid Person person,
                          BindingResult bindingResult) {
+        personValidator.validate(person, bindingResult);
         if (bindingResult.hasErrors())
             return "people/new";
 
@@ -53,7 +57,7 @@ public class PeopleController {
         return "redirect:/people";
     }
 
-    @GetMapping("/{id}/edit")
+    @GetMapping("/edit/{id}")
     public String edit(Model model, @PathVariable("id") int id) {
         model.addAttribute("person", personDAO.show(id));
         return "people/edit";
@@ -62,6 +66,7 @@ public class PeopleController {
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult,
                          @PathVariable("id") int id) {
+        personValidator.validate(person, bindingResult);
         if (bindingResult.hasErrors())
             return "people/edit";
 

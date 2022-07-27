@@ -8,6 +8,7 @@ import ru.korotkova.springcourse.models.Book;
 import ru.korotkova.springcourse.models.Person;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Anastasiia Korotkova
@@ -27,7 +28,7 @@ public class PersonDAO {
     }
 
     public List<Book> getBooks(int id) {
-        return jdbcTemplate.query("SELECT * FROM Book where personid =?", new Object[]{id}, new BeanPropertyRowMapper<>(Book.class));
+        return jdbcTemplate.query("SELECT * FROM Book where personid = ?", new Object[]{id}, new BeanPropertyRowMapper<>(Book.class));
     }
 
     public Person show(int id) {
@@ -36,16 +37,21 @@ public class PersonDAO {
     }
 
     public void save(Person person) {
-        jdbcTemplate.update("INSERT INTO Person(fio, birthofyear) VALUES(?, ?)", person.getFio(), person.getBirthOfYear());
+        jdbcTemplate.update("INSERT INTO Person(fullname, birthofyear) VALUES(?, ?)", person.getFullName(), person.getBirthOfYear());
     }
 
     public void update(int id, Person updatedPerson) {
-        jdbcTemplate.update("UPDATE Person SET fio=?, birthofyear=? WHERE id=?", updatedPerson.getFio(),
+        jdbcTemplate.update("UPDATE Person SET FullName=?, birthofyear=? WHERE id=?", updatedPerson.getFullName(),
                 updatedPerson.getBirthOfYear(), id);
     }
 
     public void delete(int id) {
         jdbcTemplate.update("DELETE FROM Person WHERE id=?", id);
+    }
+
+    public Optional<Person> getPersonByFIO(String fio) {
+        return jdbcTemplate.query("SELECT * FROM Person WHERE FullName = ?", new Object[]{fio},
+                new BeanPropertyRowMapper<>(Person.class)).stream().findAny();
     }
 
 }
